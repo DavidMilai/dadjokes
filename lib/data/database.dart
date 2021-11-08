@@ -4,7 +4,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'models/joke.dart';
 
 class Database {
-  Box jokes;
+  Box<Joke> jokes;
 
   _initBoxes() async {
     jokes = await Hive.openBox("jokes");
@@ -12,6 +12,10 @@ class Database {
 
   _registerAdapters() async {
     Hive.registerAdapter(JokeAdapter());
+  }
+
+  clearBoxes() {
+    jokes.clear();
   }
 
   init() async {
