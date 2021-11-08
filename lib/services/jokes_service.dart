@@ -5,6 +5,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class JokeService extends ChangeNotifier {
+  List<Joke> allJokes = [];
+
   bool _isLoadingJokes = false;
 
   bool get isLoadingJokes => _isLoadingJokes;
@@ -12,6 +14,14 @@ class JokeService extends ChangeNotifier {
   set isLoadingJokes(bool value) {
     _isLoadingJokes = value;
     notifyListeners();
+  }
+
+  cacheData() {
+    allJokes = db.jokes.values.toList();
+  }
+
+  clearCacheData() {
+    allJokes = [];
   }
 
   Future getJokes() {
