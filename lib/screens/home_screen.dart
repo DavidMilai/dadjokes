@@ -40,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   itemCount: jokeService.allJokes.length,
                   itemBuilder: (context, item) {
                     var joke = jokeService.allJokes[item];
-                    return Text("${joke.text}");
+                    return Text("${joke.text}*********");
                   }),
             )
           ],
