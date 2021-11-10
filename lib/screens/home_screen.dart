@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:dadjokes/services/jokes_service.dart';
 import 'package:dadjokes/utils/color.dart';
 import 'package:dadjokes/widgets/card.dart';
@@ -14,6 +16,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   List<Color> cardColor = [];
+  Random random = new Random();
 
   @override
   void initState() {
@@ -40,46 +43,22 @@ class _HomeScreenState extends State<HomeScreen> {
                 icon: Icon(Icons.add)),
           ],
         ),
-        body: Container(
-          color: Colors.blue,
-          child: Center(
-            child: SwipableStack(
-              stackClipBehaviour: Clip.antiAlias,
-              itemCount: jokeService.allJokes.length,
-              builder: (context, index, constraints) {
-                cardColor.add(AppColors.getColor());
-                var joke = jokeService.allJokes[index];
-                return CardDisplay(
-                  text: joke.text,
-                  cardColor: cardColor[index],
-                );
-              },
-              onSwipeCompleted: (index, direction) {
-                print('$index, $direction');
-              },
-            ),
-          ),
+        body: SwipableStack(
+          stackClipBehaviour: Clip.antiAlias,
+          itemCount: jokeService.allJokes.length,
+          builder: (context, index, constraints) {
+            int randNo = random.nextInt(5) + 1;
+            cardColor.add(AppColors.getColor());
+            var joke = jokeService.allJokes[index];
+            return CardDisplay(
+              text: joke.text,
+              cardColor: cardColor[index],
+            );
+          },
+          onSwipeCompleted: (index, direction) {
+            print('$index, $direction');
+          },
         ),
-
-        // Column(
-        //   children: [
-        //     // Center(
-        //     //   child: IconButton(
-        //     //       onPressed: () {
-        //     //         jokeService.getJokes();
-        //     //       },
-        //     //       icon: Icon(Icons.add)),
-        //     // ),
-        //     // Expanded(
-        //     //   child: ListView.builder(
-        //     //       itemCount: jokeService.allJokes.length,
-        //     //       itemBuilder: (context, item) {
-        //     //         var joke = jokeService.allJokes[item];
-        //     //         return Text("${joke.text}*********");
-        //     //       }),
-        //     // ),
-        //   ],
-        // ),
       ),
     );
   }

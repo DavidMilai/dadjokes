@@ -19,22 +19,22 @@ class CardDisplay extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
         border: Border.all(
           width: 10,
-          //color: Colors.transparent.withOpacity(0.3),
-          color: Colors.black,
+          color: Colors.transparent.withOpacity(0.3),
+          // color: Colors.black,
         ),
         boxShadow: [
-          // BoxShadow(
-          //   color: Color.fromRGBO(0, 0, 0, 0.22),
-          //   offset: Offset(0, 0),
-          //   blurRadius: 2,
-          //   spreadRadius: 0,
-          // ),
-          // BoxShadow(
-          //   color: Color.fromRGBO(0, 0, 0, 0.2),
-          //   offset: Offset(1, 1),
-          //   blurRadius: 2,
-          //   spreadRadius: 0,
-          // )
+          BoxShadow(
+            color: Color.fromRGBO(0, 0, 0, 0.22),
+            offset: Offset(0, 0),
+            blurRadius: 2,
+            spreadRadius: 0,
+          ),
+          BoxShadow(
+            color: Color.fromRGBO(0, 0, 0, 0.2),
+            offset: Offset(1, 1),
+            blurRadius: 2,
+            spreadRadius: 0,
+          )
         ],
       ),
       child: Center(
