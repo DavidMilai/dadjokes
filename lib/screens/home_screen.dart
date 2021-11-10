@@ -1,10 +1,12 @@
 import 'dart:math';
 
+import 'package:dadjokes/data/models/joke.dart';
 import 'package:dadjokes/services/jokes_service.dart';
 import 'package:dadjokes/utils/color.dart';
 import 'package:dadjokes/widgets/card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:swipable_stack/swipable_stack.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -43,22 +45,39 @@ class _HomeScreenState extends State<HomeScreen> {
                 icon: Icon(Icons.add)),
           ],
         ),
-        body: SwipableStack(
-          stackClipBehaviour: Clip.antiAlias,
-          itemCount: jokeService.allJokes.length,
-          builder: (context, index, constraints) {
-            int randNo = random.nextInt(5) + 1;
-            cardColor.add(AppColors.getColor());
-            var joke = jokeService.allJokes[index];
-            return CardDisplay(
-              text: joke.text,
-              cardColor: cardColor[index],
-            );
-          },
-          onSwipeCompleted: (index, direction) {
-            print('$index, $direction');
-          },
-        ),
+        body: Selector<JokeService, List<Joke>>(
+            selector: (context, jokeService) => jokeService.allJokes,
+            builder: (context, jokes, _) {
+              return SwipableStack(
+                stackClipBehaviour: Clip.antiAlias,
+                itemCount: jokes.length,
+                builder: (context, index, constraints) {
+                  cardColor.add(AppColors.getColor());
+                  var joke = jokes[index];
+                  return CardDisplay(
+                    text: joke.text,
+                    cardColor: cardColor[index],
+                  );
+                },
+                onSwipeCompleted: (index, direction) {
+                  print('$index, $direction');
+                  jokeService.getJokes();
+                },
+                overlayBuilder: (
+                  context,
+                  constraints,
+                  index,
+                  direction,
+                  swipeProgress,
+                ) {
+                  final opacity = min(swipeProgress, 1.0);
+                  return Opacity(
+                    opacity: opacity,
+                    child: Text("Hello"),
+                  );
+                },
+              );
+            }),
       ),
     );
   }

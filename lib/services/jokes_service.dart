@@ -29,7 +29,6 @@ class JokeService extends ChangeNotifier {
     return api.getJoke().then((response) {
       if (response.data['attachments'] != null)
         _saveJoke(response.data['attachments']);
-      print(db.jokes.length);
       isLoadingJokes = false;
       return response;
     }).catchError((error) {
@@ -39,7 +38,7 @@ class JokeService extends ChangeNotifier {
   }
 
   _saveJoke(data) async {
-    if (db.jokes.length == 10) await db.jokes.clear();
+    if (db.jokes.length == 20) await db.jokes.clear();
     db.jokes.add(Joke.fromMap(data[0]));
   }
 }
