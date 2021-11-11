@@ -34,6 +34,7 @@ dependencies:
   fluttertoast: ^8.0.8
   flutter_markdown: ^0.6.8
   swipable_stack: ^0.7.1
+  swipeable_card_stack: ^0.0.5
 
 
 dev_dependencies:
