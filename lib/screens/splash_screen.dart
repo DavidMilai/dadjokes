@@ -20,7 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   navigate() {
-    Navigator.popAndPushNamed(context, RouteConfig.home);
+    Navigator.pushReplacementNamed(context, RouteConfig.home);
   }
 
   @override

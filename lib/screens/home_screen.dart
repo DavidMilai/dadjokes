@@ -21,6 +21,9 @@ class _HomeScreenState extends State<HomeScreen> {
   Random random = new Random();
 
   rebuild() {}
+  refresh() {
+    rebuild();
+  }
 
   @override
   void initState() {
@@ -70,6 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         onSwipeCompleted: (index, direction) {
                           print('$index, $direction');
                           jokeService.getJokes();
+                          jokeService.removeJoke();
                         },
                         overlayBuilder: (
                           context,
@@ -86,6 +90,15 @@ class _HomeScreenState extends State<HomeScreen> {
                         },
                       ),
                     ),
+                  ),
+                  SizedBox(height: 20),
+                  Center(
+                    child: IconButton(
+                        onPressed: () {
+                          jokeService.getJokes();
+                          // Navigator.pushReplacementNamed(context, RouteConfig.home);
+                        },
+                        icon: Icon(Icons.refresh)),
                   ),
                 ],
               );

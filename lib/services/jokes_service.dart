@@ -29,13 +29,16 @@ class JokeService extends ChangeNotifier {
     return api.getJoke().then((response) {
       if (response.data['attachments'] != null)
         _saveJoke(response.data['attachments']);
-      print(db.jokes.length);
       isLoadingJokes = false;
       return response;
     }).catchError((error) {
       isLoadingJokes = false;
       return throw error;
     });
+  }
+
+  removeJoke() {
+    db.jokes.deleteAt(1);
   }
 
   _saveJoke(data) async {
