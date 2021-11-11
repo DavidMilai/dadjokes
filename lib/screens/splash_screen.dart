@@ -1,5 +1,6 @@
 import 'package:dadjokes/data/database.dart';
 import 'package:dadjokes/routes.dart';
+import 'package:dadjokes/services/jokes_service.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -12,6 +13,9 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   void initDatabase() async {
     await db.init();
+    jokeService.getJokes();
+    jokeService.getJokes();
+    jokeService.getJokes();
     await Future.delayed(Duration(seconds: 1), navigate);
   }
 
