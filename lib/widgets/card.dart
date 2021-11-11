@@ -13,6 +13,7 @@ class CardDisplay extends StatelessWidget {
     return Container(
       height: size.height * 0.7,
       width: size.width * 0.7,
+      margin: EdgeInsets.only(top: 50, left: 50),
       padding: EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: cardColor,
