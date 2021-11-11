@@ -44,7 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 onPressed: () {
                   jokeService.getJokes();
                 },
-                icon: Icon(Icons.add)),
+                icon: Icon(Icons.refresh)),
           ],
         ),
         body: Selector<JokeService, List<Joke>>(
