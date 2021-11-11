@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:swipable_stack/swipable_stack.dart';
 
+import '../routes.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key key}) : super(key: key);
 
@@ -17,29 +19,23 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final controller = SwipableStackController();
   List<Color> cardColor = [];
   Random random = new Random();
-
-  rebuild() {}
-  refresh() {
-    rebuild();
-  }
-
   @override
   void initState() {
     super.initState();
     jokeService.cacheData();
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-    jokeService.clearCacheData();
-  }
+  // @override
+  // void dispose() {
+  //   super.dispose();
+  //   jokeService.clearCacheData();
+  // }
 
   @override
   Widget build(BuildContext context) {
-    rebuild();
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -60,6 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Flexible(
                     child: Center(
                       child: SwipableStack(
+                        controller: controller,
                         stackClipBehaviour: Clip.antiAlias,
                         itemCount: jokes.length,
                         builder: (context, index, constraints) {
@@ -73,7 +70,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         onSwipeCompleted: (index, direction) {
                           print('$index, $direction');
                           jokeService.getJokes();
-                          jokeService.removeJoke();
                         },
                         overlayBuilder: (
                           context,
@@ -92,13 +88,28 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   SizedBox(height: 20),
-                  Center(
-                    child: IconButton(
-                        onPressed: () {
-                          jokeService.getJokes();
-                          // Navigator.pushReplacementNamed(context, RouteConfig.home);
-                        },
-                        icon: Icon(Icons.refresh)),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      IconButton(
+                          onPressed: () {
+                            controller.rewind();
+                          },
+                          icon: Icon(Icons.arrow_back_ios)),
+                      IconButton(
+                          onPressed: () {
+                            jokeService.getJokes();
+                            Navigator.pushReplacementNamed(
+                                context, RouteConfig.home);
+                          },
+                          icon: Icon(Icons.refresh)),
+                      IconButton(
+                          onPressed: () {
+                            controller.next(
+                                swipeDirection: SwipeDirection.right);
+                          },
+                          icon: Icon(Icons.arrow_forward_ios)),
+                    ],
                   ),
                 ],
               );
