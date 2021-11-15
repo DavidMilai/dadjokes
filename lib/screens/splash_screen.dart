@@ -15,10 +15,8 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   void initDatabase() async {
     await db.init();
-    jokeService.getJokes();
-    jokeService.getJokes();
-    jokeService.getJokes();
-    await Future.delayed(Duration(seconds: 1), navigate);
+    for (int i = 0; i < 10; i++) jokeService.getJokes();
+    await Future.delayed(Duration(seconds: 3), navigate);
   }
 
   navigate() {
@@ -41,6 +39,7 @@ class _SplashScreenState extends State<SplashScreen> {
           artboard: 'Jeep',
           animations: ['idle'],
           fit: BoxFit.cover,
+          placeHolder: Text("SplashScreen"),
         ),
       ),
     );
