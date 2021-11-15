@@ -6,6 +6,7 @@ import 'package:dadjokes/utils/color.dart';
 import 'package:dadjokes/widgets/card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:provider/provider.dart';
 import 'package:swipable_stack/swipable_stack.dart';
 
@@ -22,6 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final controller = SwipableStackController();
   List<Color> cardColor = [];
   Random random = new Random();
+
   @override
   void initState() {
     super.initState();
@@ -36,23 +38,20 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          actions: [
-            IconButton(
-                onPressed: () {
-                  jokeService.getJokes();
-                },
-                icon: Icon(Icons.refresh)),
-          ],
-        ),
         body: Selector<JokeService, List<Joke>>(
             selector: (context, jokeService) => jokeService.allJokes,
             builder: (context, jokes, _) {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  SizedBox(height: size.height * 0.05),
+                  Text(
+                    "DadJokes",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
                   Flexible(
                     child: Center(
                       child: SwipableStack(
