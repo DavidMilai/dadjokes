@@ -38,11 +38,12 @@ class JokeService extends ChangeNotifier {
   }
 
   removeJoke() {
-    db.jokes.deleteAt(1);
+    if (db.jokes.length == 15) db.jokes.deleteAt(0);
   }
+  //felix kiach
 
   _saveJoke(data) async {
-    if (db.jokes.length == 20) await db.jokes.clear();
+    // if (db.jokes.length == 20) await db.jokes.clear();
     db.jokes.add(Joke.fromMap(data[0]));
   }
 }
