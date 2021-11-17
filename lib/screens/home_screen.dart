@@ -80,7 +80,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           final opacity = min(swipeProgress, 1.0);
                           return Opacity(
                             opacity: opacity,
-                            child: Text("Hello"),
+                            child: Text(""),
                           );
                         },
                       ),
