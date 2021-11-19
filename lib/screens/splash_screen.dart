@@ -16,7 +16,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initDatabase() async {
     await db.init();
     for (int i = 0; i < 10; i++) jokeService.getJokes();
-    await Future.delayed(Duration(seconds: 3), navigate);
+    await Future.delayed(Duration(seconds: 1), navigate);
   }
 
   navigate() {
